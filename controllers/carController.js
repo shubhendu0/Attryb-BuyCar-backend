@@ -61,9 +61,13 @@ const getCar = async (req, res) => {
 }
 
 const updateData = async(req, res) => {
-    let data = new Car(req.body);
+    let data = req.body;
+    console.log(data);
     try{
-        const myData = await Car.findByIdAndUpdate( req.params.id , { $set: data })
+        const myData = await Car.updateOne( 
+            {_id : req.params.id} , 
+            { $set : data }
+        )
         if(myData){
             return res.status(200).json({message : "Data updated"})
         }
